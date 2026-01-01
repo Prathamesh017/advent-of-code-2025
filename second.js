@@ -51,12 +51,54 @@ function checkPatternsInRanges(start,end,arr) {
 }
 
 
+function checkPatternsInRanges2(start,end,arr) {
+        console.log(`Checking range: ${start}-${end}`);
+    for(let i = start; i <= end; i++) {
+        let map=new Map();
+ 
+        let isPattern=false;
+        for(let j=0;j<i.toString().length;j++){
+            if(map.has(i.toString()[j])){
+                let str=i.toString().slice(0,j);
+                let left=j;
+                let right=left+left;
+                 if(right>i.toString().length){
+        
+                    break;
+                 }
+                 while(left<right && right<=i.toString().length){
+                    let nextStr=i.toString().slice(left,right);
+                    if(nextStr!=str){
+                        isPattern=false;
+                        break;
+                    }
+
+                    left=right;
+                    right=left+str.length;
+                 }
+                 if(left === i.toString().length){
+                    isPattern=true;
+                    break;
+                 }
+            }
+            else{
+                map.set(i.toString()[j],j)
+            }
+        }
+        if(isPattern){
+            arr.push(i);
+        }
+            
+       
+    }
+}
+
+
 function countNumbersInRanges(ranges) {
 const ans=[];
-let count=0
     for(let i = 0; i < ranges.length; i++) {
         let [start, end] = ranges[i].split('-').map(Number);
-        checkPatternsInRanges(start,end,ans);
+        checkPatternsInRanges2(start,end,ans);
     }
     return {ans,count:ans.reduce((a,b)=>a+b,0)};
 
