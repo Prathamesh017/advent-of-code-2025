@@ -81,6 +81,8 @@ function findMatchingBoxes(pairs) {
     if (found.length === 0) {
       groups.push([a, b]);
       count++
+        lastA=a;
+      lastB=b;
     }
 
     // Case 2: exactly one group found
@@ -89,6 +91,8 @@ function findMatchingBoxes(pairs) {
       if (!g.includes(a)) g.push(a);
       if (!g.includes(b)) g.push(b);
       count++
+        lastA=a;
+      lastB=b;
     }
 
     // Case 3: two groups found → merge
